@@ -2,6 +2,9 @@
 
 All notable changes to `artisan-commands` will be documented in this file
 
+## 1.1.2 - 2020-02-17
+- Update README.md with correct links
+
 ## 1.1.1 - 2020-02-17
 - Update README.md
 
