@@ -1,7 +1,7 @@
 # Laravel Artisan Commands
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/abaci/artisan-commands.svg?style=flat-square)](https://packagist.org/packages/abaci/artisan-commands)
-[![Build Status](https://img.shields.io/travis/abaci/artisan-commands/master.svg?style=flat-square)](https://travis-ci.org/abaci/artisan-commands)
+[![Build Status](https://img.shields.io/travis/abaci/artisan-commands/master.svg?style=flat-square)](https://travis-ci.org/davidsmithitsandbox/abaci-artisan-commands)
 [![Total Downloads](https://img.shields.io/packagist/dt/abaci/artisan-commands.svg?style=flat-square)](https://packagist.org/packages/abaci/artisan-commands)
 
 A collection of artisan commands
