@@ -8,7 +8,6 @@ use Orchestra\Testbench\TestCase;
 
 class MakeDirTest extends TestCase
 {
-
     protected $temp_dir = './temp/';
 
     protected function getPackageProviders($app): array
@@ -20,7 +19,7 @@ class MakeDirTest extends TestCase
     public function makes_directory(): void
     {
         $path       = $this->temp_dir;
-        $Filesystem = new Filesystem;
+        $Filesystem = new Filesystem();
         $Filesystem->deleteDirectory($path);
         $this->artisan("make:dir $path")
             ->expectsOutput('Directory created: ' . $path)
@@ -32,7 +31,7 @@ class MakeDirTest extends TestCase
     public function warns_of_existing_dir(): void
     {
         $path       = $this->temp_dir;
-        $Filesystem = new Filesystem;
+        $Filesystem = new Filesystem();
         $Filesystem->makeDirectory($path);
         $this->artisan("make:dir $path")
             ->expectsOutput('Directory already exists: ' . $path)
@@ -44,7 +43,7 @@ class MakeDirTest extends TestCase
     public function makes_directory_i(): void
     {
         $path       = $this->temp_dir;
-        $Filesystem = new Filesystem;
+        $Filesystem = new Filesystem();
         $Filesystem->deleteDirectory($path);
         $this->artisan("make:dir $path --i")
             ->expectsQuestion('Path to Directory', $path)
@@ -57,7 +56,7 @@ class MakeDirTest extends TestCase
     public function warns_of_existing_dir_i(): void
     {
         $path       = $this->temp_dir;
-        $Filesystem = new Filesystem;
+        $Filesystem = new Filesystem();
         $Filesystem->makeDirectory($path);
         $this->artisan("make:dir $path --i")
             ->expectsQuestion('Path to Directory', $path)
