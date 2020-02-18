@@ -8,7 +8,6 @@ use Orchestra\Testbench\TestCase;
 
 class MakeDirTest extends TestCase
 {
-
     protected $temp_dir = './tests/temp/';
 
     /** @test */
