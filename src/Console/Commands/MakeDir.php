@@ -35,13 +35,13 @@ class MakeDir extends Command
         }
 
         if (File::isDirectory($path)) {
-            $this->info('Directory already exists: '.$path);
+            $this->info('Directory already exists: ' . $path);
 
             return $this;
         }
 
-        File::ensureDirectoryExists($path, 0755, true);
-        $this->info('Directory created: '.$path);
+        File::ensureDirectoryExists($path, 0777, true);
+        $this->info('Directory created: ' . $path);
 
         return $this;
     }

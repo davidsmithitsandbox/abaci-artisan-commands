@@ -52,20 +52,36 @@ class MakeDirTest extends TestCase
     public function warns_of_existing_dir_i(): void
     {
         $path = $this->temp_dir;
-        File::makeDirectory($path);
+
+        if (!File::isDirectory($path)) {
+            File::makeDirectory($path, 0777, true);
+        }
+
+        $this->assertDirectoryExists($path);
+
         $this->artisan("make:dir $path --i")
             ->expectsQuestion('Path to Directory', $path)
             ->expectsOutput('Directory already exists: ' . $path)
             ->assertExitCode(0);
-        $this->assertTrue(File::exists($path));
+
+        $this->assertDirectoryExists($path);
+
         File::deleteDirectory($path);
+
+        $this->assertDirectoryNotExists($path);
     }
 
     /** @test */
     public function makes_directory_no_parameters(): void
     {
         $path = $this->temp_dir;
-        File::deleteDirectory($path);
+
+        if (File::isDirectory($path)) {
+            File::deleteDirectory($path);
+        }
+
+        $this->assertDirectoryExists($path);
+
         $this->artisan('make:dir')
             ->expectsQuestion('Path to Directory', $path)
             ->expectsOutput('Directory created: ' . $path)

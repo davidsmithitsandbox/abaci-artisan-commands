@@ -16,12 +16,18 @@ composer require abaci/artisan-commands
 
 ## Usage
 
+NOTE:<br>
+To invoke interactive mode on most commands, don't specify a include a parameter or use the `--i` option. <br><br>
 
 Make Directory
 ``` php
 php artisan make:dir [path?] --i
 ```
-To invoke interactive mode, don't specify a path or use the `--i` option.
+
+Delete Directory
+``` php
+php artisan delete:dir [path?] --i
+```
 
 ### Changelog
 
