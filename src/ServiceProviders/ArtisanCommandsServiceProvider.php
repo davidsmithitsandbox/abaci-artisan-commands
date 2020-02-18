@@ -2,6 +2,7 @@
 
 namespace Abaci\ArtisanCommands\ServiceProviders;
 
+use Abaci\ArtisanCommands\Console\Commands\DeleteDir;
 use Abaci\ArtisanCommands\Console\Commands\MakeDir;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,7 +18,8 @@ class ArtisanCommandsServiceProvider extends ServiceProvider
             // Registering package commands.
             $this->commands(
                 [
-                    MakeDir::class
+                    MakeDir::class,
+                    DeleteDir::class
                 ]
             );
         }
