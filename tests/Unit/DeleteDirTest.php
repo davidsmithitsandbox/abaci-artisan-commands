@@ -8,7 +8,6 @@ use Orchestra\Testbench\TestCase;
 
 class DeleteDirTest extends TestCase
 {
-
     protected $temp_dir = './tests/temp';
 
     /** @test */
