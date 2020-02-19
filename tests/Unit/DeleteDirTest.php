@@ -15,9 +15,7 @@ class DeleteDirTest extends TestCase
     {
         $path = $this->temp_dir;
 
-        if (!File::isDirectory($path)) {
-            File::makeDirectory($path, 0777, true);
-        }
+        File::ensureDirectoryExists($path);
 
         $this->assertDirectoryExists($path);
 
@@ -70,9 +68,7 @@ class DeleteDirTest extends TestCase
     {
         $path = $this->temp_dir;
 
-        if (!File::isDirectory($path)) {
-            File::makeDirectory($path, 0777, true);
-        }
+        File::ensureDirectoryExists($path);
 
         $this->assertDirectoryExists($path);
 
@@ -109,9 +105,7 @@ class DeleteDirTest extends TestCase
     {
         $path = $this->temp_dir;
 
-        if (!File::isDirectory($path)) {
-            File::makeDirectory($path, 0777, true);
-        }
+        File::ensureDirectoryExists($path);
 
         $this->assertDirectoryExists($path);
 

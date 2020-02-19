@@ -8,43 +8,70 @@ use Orchestra\Testbench\TestCase;
 
 class MakeDirTest extends TestCase
 {
+
     protected $temp_dir = './tests/temp/';
 
     /** @test */
     public function makes_directory(): void
     {
         $path = $this->temp_dir;
-        File::deleteDirectory($path);
+
+        if (!File::isDirectory($path)) {
+            File::deleteDirectory($path);
+        }
+
+        $this->assertDirectoryNotExists($path);
+
         $this->artisan("make:dir $path")
             ->expectsOutput('Directory created: ' . $path)
             ->assertExitCode(0);
-        $this->assertTrue(File::exists($path));
+
+        $this->assertDirectoryExists($path);
+
         File::deleteDirectory($path);
+
+        $this->assertDirectoryNotExists($path);
     }
 
     /** @test */
     public function warns_of_existing_dir(): void
     {
         $path = $this->temp_dir;
-        File::makeDirectory($path);
+
+        File::ensureDirectoryExists($path);
+
+        $this->assertDirectoryExists($path);
+
         $this->artisan("make:dir $path")
             ->expectsOutput('Directory already exists: ' . $path)
             ->assertExitCode(0);
-        $this->assertTrue(File::exists($path));
+
+        $this->assertDirectoryExists($path);
+
         File::deleteDirectory($path);
+
+        $this->assertDirectoryNotExists($path);
     }
 
     /** @test */
     public function warns_of_existing_no_parameters(): void
     {
         $path = $this->temp_dir;
-        File::makeDirectory($path);
+
+        File::ensureDirectoryExists($path);
+
+        $this->assertDirectoryExists($path);
+
         $this->artisan('make:dir')
             ->expectsQuestion('Path to Directory', $path)
             ->expectsOutput('Directory already exists: ' . $path)
             ->assertExitCode(0);
-        $this->assertTrue(File::exists($path));
+
+        $this->assertDirectoryExists($path);
+
         File::deleteDirectory($path);
+
+        $this->assertDirectoryNotExists($path);
     }
 
     /** @test */
@@ -52,9 +79,7 @@ class MakeDirTest extends TestCase
     {
         $path = $this->temp_dir;
 
-        if (!File::isDirectory($path)) {
-            File::makeDirectory($path, 0777, true);
-        }
+        File::ensureDirectoryExists($path);
 
         $this->assertDirectoryExists($path);
 
@@ -79,27 +104,41 @@ class MakeDirTest extends TestCase
             File::deleteDirectory($path);
         }
 
-        $this->assertDirectoryExists($path);
+        $this->assertDirectoryNotExists($path);
 
         $this->artisan('make:dir')
             ->expectsQuestion('Path to Directory', $path)
             ->expectsOutput('Directory created: ' . $path)
             ->assertExitCode(0);
-        $this->assertTrue(File::exists($path));
+
+        $this->assertDirectoryExists($path);
+
         File::deleteDirectory($path);
+
+        $this->assertDirectoryNotExists($path);
     }
 
     /** @test */
     public function makes_directory_i(): void
     {
         $path = $this->temp_dir;
-        File::deleteDirectory($path);
+
+        if (File::isDirectory($path)) {
+            File::deleteDirectory($path);
+        }
+
+        $this->assertDirectoryNotExists($path);
+
         $this->artisan('make:dir --i')
             ->expectsQuestion('Path to Directory', $path)
             ->expectsOutput('Directory created: ' . $path)
             ->assertExitCode(0);
-        $this->assertTrue(File::exists($path));
+
+        $this->assertDirectoryExists($path);
+
         File::deleteDirectory($path);
+
+        $this->assertDirectoryNotExists($path);
     }
 
     protected function getPackageProviders($app): array

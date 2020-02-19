@@ -6,24 +6,33 @@ use Abaci\ArtisanCommands\ServiceProviders\ArtisanCommandsServiceProvider;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase;
 
-class FileSystem extends TestCase
+class FileSystemTest extends TestCase
 {
+
     protected $temp_dir = './tests/temp/';
 
     /** @test */
     public function makes_directory_and_deletes_a_directory(): void
     {
         $path = $this->temp_dir;
-        File::deleteDirectory($path);
+
+        if (!File::isDirectory($path)) {
+            File::deleteDirectory($path);
+        }
+
+        $this->assertDirectoryNotExists($path);
+
         $this->artisan("make:dir $path")
             ->expectsOutput('Directory created: ' . $path)
             ->assertExitCode(0);
-        $this->assertTrue(File::exists($path));
+
+        $this->assertDirectoryExists($path);
+
         $this->artisan("delete:dir $path")
             ->expectsOutput("Directory Deleted: $path")
             ->assertExitCode(0);
-        $this->assertFalse(File::exists($path));
-        File::deleteDirectory($path);
+
+        $this->assertDirectoryNotExists($path);
     }
 
     protected function getPackageProviders($app): array
